@@ -1,0 +1,39 @@
+<html>
+<head><title>Automation Test</title></head>
+<script src="libs/jquery.min.js"></script>
+<body>
+  <form autocomplete="off">
+    <table>
+      <thead>
+        <th width="200">Field</th>
+        <th>Value</th>
+      </thead>
+      <tr>
+        <td>ID</td>
+        <td><input name = "id"/></td>
+      </tr>
+      <tr>
+          <td>Instance</td>
+          <td><input name = "instance"/></td>
+        </tr>
+    </table>
+    <input type="button" onClick = "saveFilter()" value="Execute"/>
+  </form>
+  <script>
+    function saveFilter() {
+      /* const dataObj = {};
+      $('form').serializeArray().forEach(el => dataObj[el.name] = el.value); */
+      var request = $.ajax({
+        url: "/saveFilter",
+        method: "POST",
+        data: $('form').serialize(),
+        contentType: "text/plain"
+      }).done(function( msg ) {
+        console.log(msg);
+      }).fail(function( jqXHR, textStatus ) {
+        console.log( "Request failed: ", textStatus );
+      });
+    }
+  </script>
+</body>
+</html>
